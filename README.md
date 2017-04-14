@@ -42,9 +42,9 @@ The flow of data:
 1. If match is no longer valid (Elo rank was changed in the meantime, user went offline), "Find Match" command is initiated
 
 Described architecture is not a true "Event sourcing" pattern.
-The problem is, there is a (small) probability of inconsistency between **dynamoDB** (main database) and event store (failure to send the message).
+The problem is, there is a (small) probability of inconsistency between **dynamoDB** (main database) and event store (in case messege failed to be stored).
 
-This is solved my using the same events from event store for creating the main database:
+This is solved by using events from the event store for creating the main database:
 
 ![matchmaking](https://cloud.githubusercontent.com/assets/1868852/25057349/50711352-216f-11e7-9b2b-069e9b568286.png)
 
