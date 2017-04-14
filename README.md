@@ -34,7 +34,6 @@ The flow of data:
 1. **Users** aggregate receives a command from "the outside" (over ws, http, rpc). The command is then transformed into an event and saved in the event store.
 1. **Process Manager** listens to all events in the store and based on these events, issues a command.
 1. In case the user had requested a matchmaking, "find match" command is sent to **SQS** handler.
-1. **SQS** handler receives a "find match" command which is processed by single **MM** instance.
 1. **MM** instance receives a command and tries to find possible match
 1. If the match is found, *POSSIBLE_MATCH_FOUND" event is dispatched.
 1. **Process Manager** reacts to *POSSIBLE_MATCH_FOUND" event and checks if userIdA and userIdB are indeed (or still) a good match.
