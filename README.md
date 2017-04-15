@@ -15,6 +15,9 @@ If the system is designed in a way that every new event is saved in some kind of
 
 This is a pattern known as "Event sourcing".
 
+If you are not familliar with it, this is a great introductory video on the subject:
+[YOW! Nights March 2016 Martin Fowler - Event Sourcing](https://www.youtube.com/watch?v=aweV9FLTZkU)
+
 The list of events is saved using event store (usually using scalable solutions like [Apache Kafka](https://kafka.apache.org/) or [EventStore](https://geteventstore.com/)) which is also used as a message bus.
 
 ![eventual consistency](https://cloud.githubusercontent.com/assets/1868852/25046843/f53e6c90-2133-11e7-93de-76f0b13b8c8b.png)
