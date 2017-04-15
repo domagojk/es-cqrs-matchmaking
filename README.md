@@ -38,14 +38,20 @@ The flow of data:
 1. If the match is found, *POSSIBLE_MATCH_FOUND* event is dispatched.
 1. **Process Manager** reacts to *POSSIBLE_MATCH_FOUND* event and checks if userIdA and userIdB are indeed (or still) a good match.
 1. If match is validated, "start game" command is sent to **Users** aggregate
-1. If match is no longer valid (Elo rank was changed in the meantime, user went offline), "Find Match" command is initiated
+1. If match is no longer valid (Elo rank was changed in the meantime, user went offline), "Find Match" command is again initiated
 
-Described architecture is not a true "Event sourcing" pattern.
+Described architecture is not a complete implementation of "Event sourcing" pattern.
 The problem is, there is a (small) probability of inconsistency between **dynamoDB** (main database) and event store (in case messege failed to be stored).
 
-This is solved by using events from the event store for creating the main database:
+One way this can be solved is by using events from the event store for creating the main database:
 
 ![matchmaking](https://cloud.githubusercontent.com/assets/1868852/25057349/50711352-216f-11e7-9b2b-069e9b568286.png)
+
+Unfortunately, there could be a lot of work to be done in existing arhitectures, because every db create/update/delete would need to be changed in event source pattern.
+
+But this inconsistency would not cause a loss of data or wrong results. It would only affect a speed of finding matches.
+If for example, MM instances are woring with a user which is actually deleted in the real world, POSSIBLE_MATCH_FOUND would always fail and because of double checking, new search would be initiated.
+It is not ideal, but if event sourcing pattern in the future is be adopted for the whole arhitecture, this problem would just disappear without the need of changing anything in MM instances. 
 
 ## Using a portion of users
 Another (optional) way of improving matchmaking performance is to use a sample of users.
