@@ -43,7 +43,7 @@ The flow of data:
 Described architecture is not a complete implementation of "Event sourcing" pattern.
 The problem is, there is a (small) probability of inconsistency between **dynamoDB** (main database) and event store (in case messege failed to be stored).
 
-One way this can be solved is by using events from the event store for creating the main database:
+In ES systems, this is solved by using events for creating every store, including the main database:
 
 ![matchmaking](https://cloud.githubusercontent.com/assets/1868852/25057349/50711352-216f-11e7-9b2b-069e9b568286.png)
 
