@@ -49,10 +49,6 @@ One way this can be solved is by using events from the event store for creating 
 
 Unfortunately, there could be a lot of work to be done in existing arhitectures, because every db create/update/delete would need to be changed in event source pattern.
 
-But in this case, inconsistency with a main db would not cause a loss of data or wrong results. It would only affect a speed of finding matches.
-If for example, MM instances are woring with a user which is actually deleted in the real world, POSSIBLE_MATCH_FOUND would always fail and because of double checking, new search would be initiated.
-It is not ideal, but if event sourcing pattern in the future is be adopted for the whole arhitecture, this problem would just disappear without the need of changing anything in MM instances. 
-
 ## Using a portion of users
 Another (optional) way of improving matchmaking performance is to use a sample of users.
 
