@@ -26,6 +26,7 @@ It is possible that these instances are not in sync at all times, but we can sti
 It's irrelevant what language or database we use in any of these instances.
 
 New instances can easily be added by replaying all events in the event store and then subscribing to new events.
+The same is true for instances whose database needs to be rebuilt.
 
 ### Match Making Example
 ![Match Making](https://cloud.githubusercontent.com/assets/1868852/25047642/4333ffa6-2138-11e7-96be-5c7d2fda9585.png)
@@ -57,3 +58,5 @@ each instance could work with a part of the data set.
 Instead of querying over 1 million users, 100 000 users is a user-base which is large enough for finding a good match.
 
 Users per instance can also be categorised by geo-location parameter.
+
+Because of this fact, MM instances could use the fastest database possible: in-memory (RAM).
