@@ -40,10 +40,10 @@ The flow of data:
 1. In case the user had requested a matchmaking, "find match" command is sent to **SQS** handler.
 1. **MM** instance receives a command and tries to find possible match
 1. If the match is found, *POSSIBLE_MATCH_FOUND* event is dispatched.
-1. **Process Manager** reacts to *POSSIBLE_MATCH_FOUND* event and checks if userIdA and userIdB are indeed (or still) a good match.
-1. If match is validated, "start game" command is sent to **Users** aggregate
-1. If match is no longer valid (Elo rank was changed in the meantime, user went offline), "Find Match" command is again initiated
-
+1. **Process Manager** reacts to *POSSIBLE_MATCH_FOUND* and sens a "start game" command to **Users** aggregate
+1. **Users** aggregate validates a command and checks if userIdA and userIdB are indeed (or still) a good match.
+1. If command is accepted, "GAME_STARTED" event is saved
+1. If match is declined (Elo rank was changed in the meantime, user went offline), "Find Match" command is again initiated
 
 ## Using a portion of users
 Another (optional) way of improving matchmaking performance is to use a sample of users.
