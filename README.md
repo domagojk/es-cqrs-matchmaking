@@ -32,7 +32,7 @@ New instances can easily be added by replaying all events in the event store and
 The same is true for instances whose database needs to be rebuilt.
 
 ### Match Making Example
-![Match Making](https://cloud.githubusercontent.com/assets/1868852/25047642/4333ffa6-2138-11e7-96be-5c7d2fda9585.png)
+![matchmaking](https://cloud.githubusercontent.com/assets/1868852/25308309/65c82806-27b1-11e7-98ed-b0580154db14.png)
 
 The flow of data:
 1. **Users** aggregate receives a command from "the outside" (over ws, http, rpc). The command is then transformed into an event and saved in the event store.
@@ -44,14 +44,6 @@ The flow of data:
 1. If match is validated, "start game" command is sent to **Users** aggregate
 1. If match is no longer valid (Elo rank was changed in the meantime, user went offline), "Find Match" command is again initiated
 
-Described architecture is not a complete implementation of "Event sourcing" pattern.
-The problem is, there is a (small) probability of inconsistency between **dynamoDB** (main database) and event store (in case messege failed to be stored).
-
-In ES systems, this is solved by using events for creating every store, including the main database:
-
-![matchmaking](https://cloud.githubusercontent.com/assets/1868852/25057349/50711352-216f-11e7-9b2b-069e9b568286.png)
-
-Unfortunately, there could be a lot of work to be done in existing arhitectures, because every db create/update/delete would need to be changed in event source pattern.
 
 ## Using a portion of users
 Another (optional) way of improving matchmaking performance is to use a sample of users.
